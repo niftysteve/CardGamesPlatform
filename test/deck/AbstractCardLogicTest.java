@@ -3,7 +3,7 @@ package deck;
 import org.junit.After;
 import org.junit.Before;
 
-import game.poker.player.CardLogic;
+import game.poker.rules.CardLogic;
 import game.deck.Hand;
 
 import static junit.framework.TestCase.assertEquals;

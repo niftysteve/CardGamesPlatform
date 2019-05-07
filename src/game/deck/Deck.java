@@ -1,6 +1,6 @@
 package game.deck;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a deck of cards.
@@ -18,7 +18,7 @@ public interface Deck {
    * @param amount the number of cards to be dealt to each player
    * @return a list of hands dealt
    */
-  ArrayList<Hand> dealCards(int players, int amount);
+  List<Hand> dealCards(int players, int amount);
 
   /**
    * Draws a card by removing the top-most card from the deck.

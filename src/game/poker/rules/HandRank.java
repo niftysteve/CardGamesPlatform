@@ -1,4 +1,4 @@
-package game.deck;
+package game.poker.rules;
 
 /**
  * Represents all possible Poker hand ranks.

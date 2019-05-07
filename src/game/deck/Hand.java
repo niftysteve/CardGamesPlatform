@@ -2,6 +2,8 @@ package game.deck;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.TreeMap;
 
 
@@ -9,7 +11,7 @@ import java.util.TreeMap;
  * Represents a hand of cards.
  */
 public class Hand {
-  private ArrayList<Card> hand;
+  private List<Card> hand;
 
   public Hand() {
     this.hand = new ArrayList<>();
@@ -19,7 +21,7 @@ public class Hand {
    * Constructs a Hand with a given list of Cards.
    * @param hand a list of Cards to fill the Hand with
    */
-  public Hand(ArrayList<Card> hand) {
+  public Hand(List<Card> hand) {
     this.hand = hand;
   }
 
@@ -35,12 +37,10 @@ public class Hand {
    * Gets all the suits that appears in this hand.
    * @return a list of all suits that appear in this hand
    */
-  public ArrayList<String> getSuits() {
-    ArrayList<String> suits = new ArrayList<>();
+  public List<Suit> getSuits() {
+    List<Suit> suits = new ArrayList<>();
 
-    for (Card card : hand) {
-      suits.add(card.getSuit());
-    }
+    hand.forEach(card -> suits.add(card.getSuit()));
 
     return suits;
   }
@@ -49,12 +49,10 @@ public class Hand {
    * Gets all the card values in this hand.
    * @return a list of all card values in this hand
    */
-  public ArrayList<Integer> getValues() {
-    ArrayList<Integer> values = new ArrayList<>();
+  public List<Integer> getValues() {
+    List<Integer> values = new ArrayList<>();
 
-    for (Card card : hand) {
-      values.add(card.getValue());
-    }
+    hand.forEach(card -> values.add(card.getRank()));
 
     return values;
   }
@@ -66,7 +64,7 @@ public class Hand {
   public TreeMap<Integer, Integer> allValues() {
 
     TreeMap<Integer, Integer> quantity = new TreeMap<>();
-    ArrayList<Integer> values = getValues();
+    List<Integer> values = getValues();
 
     for (Integer rank : values) {
       if (!quantity.containsKey(rank)) {
@@ -81,12 +79,12 @@ public class Hand {
    * Gets the amount of times the suits in this hand appear.
    * @return a map of suits and the amount of times they appear in this hand
    */
-  public TreeMap<String, Integer> allSuits() {
+  public HashMap<Suit, Integer> allSuits() {
 
-    TreeMap<String, Integer> quantity = new TreeMap<>();
-    ArrayList<String> rawSuits = getSuits();
+    HashMap<Suit, Integer> quantity = new HashMap<>();
+    List<Suit> rawSuits = getSuits();
 
-    for (String suit : rawSuits) {
+    for (Suit suit : rawSuits) {
       if (!quantity.containsKey(suit)) {
         quantity.put(suit, Collections.frequency(rawSuits, suit));
       }
@@ -95,7 +93,7 @@ public class Hand {
     return quantity;
   }
 
-  public ArrayList<Card> getCards() {
+  public List<Card> getCards() {
     return this.hand;
   }
 }

@@ -4,12 +4,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.TreeMap;
 
 import game.deck.Card;
 import game.deck.Deck;
 import game.deck.Hand;
+import game.deck.Rank;
 import game.deck.StandardDeck;
+import game.deck.Suit;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -29,7 +33,7 @@ public class HandTest {
   public void testAddCard() {
     assertEquals(7, hand.getCards().size());
 
-    Card cardOne = new Card("Test", 15);
+    Card cardOne = new Card(Suit.Clubs, Rank.Ace);
     hand.addCard(cardOne);
 
     assertEquals(8, hand.getCards().size());
@@ -37,9 +41,9 @@ public class HandTest {
 
   @Test
   public void testGetSuits() {
-    String[] testSuits = new String[]{"Hearts", "Spades", "Hearts", "Spades",
-            "Spades", "Diamonds", "Diamonds"};
-    ArrayList<String> actualSuits = hand.getSuits();
+    Suit[] testSuits = new Suit[]{Suit.Hearts, Suit.Spades, Suit.Hearts, Suit.Spades,
+            Suit.Spades, Suit.Diamonds, Suit.Diamonds};
+    List<Suit> actualSuits = hand.getSuits();
     for (int i = 0; i < actualSuits.size(); i++) {
       assertEquals(testSuits[i], actualSuits.get(i));
     }
@@ -48,7 +52,7 @@ public class HandTest {
   @Test
   public void testGetValues() {
     Integer[] testValues = new Integer[]{12, 3, 9, 8, 11, 5, 14};
-    ArrayList<Integer> actualValues = hand.getValues();
+    List<Integer> actualValues = hand.getValues();
     for (int i = 0; i < actualValues.size(); i++) {
       assertEquals(testValues[i], actualValues.get(i));
     }
@@ -73,10 +77,10 @@ public class HandTest {
 
   @Test
   public void testAllSuits() {
-    TreeMap<String, Integer> actualValues = hand.allSuits();
-    ArrayList<String> keys = new ArrayList<>(actualValues.keySet());
-    ArrayList<Integer> quantity = new ArrayList<>(actualValues.values());
-    String[] testValues = new String[]{"Diamonds", "Hearts", "Spades"};
+    HashMap<Suit, Integer> actualValues = hand.allSuits();
+    List<Suit> keys = new ArrayList<>(actualValues.keySet());
+    List<Integer> quantity = new ArrayList<>(actualValues.values());
+    Suit[] testValues = new Suit[]{Suit.Diamonds, Suit.Hearts, Suit.Spades};
     Integer[] testQuantity = new Integer[]{2, 2, 3};
 
     for (int i = 0; i < actualValues.size(); i++) {

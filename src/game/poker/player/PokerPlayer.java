@@ -1,10 +1,12 @@
 package game.poker.player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import game.deck.Card;
 import game.deck.Hand;
-import game.deck.HandRank;
+import game.poker.rules.HandRank;
+import game.poker.rules.CardLogic;
 
 /**
  * Represents a poker player.
@@ -87,7 +89,7 @@ public class PokerPlayer implements Player {
   }
 
   @Override
-  public ArrayList<Card> getHand() {
+  public List<Card> getHand() {
     return hand.getCards();
   }
 

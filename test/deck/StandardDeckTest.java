@@ -4,11 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import game.deck.Card;
 import game.deck.Deck;
 import game.deck.Hand;
 import game.deck.StandardDeck;
+import game.deck.Suit;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -25,12 +27,12 @@ public class StandardDeckTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void zeroDeal() {
-    ArrayList<Hand> zeroPlayer = deck.dealCards(0, 5);
+    List<Hand> zeroPlayer = deck.dealCards(0, 5);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void excessDeal() {
-    ArrayList<Hand> excess = deck.dealCards(5, 11);
+    List<Hand> excess = deck.dealCards(5, 11);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -55,16 +57,16 @@ public class StandardDeckTest {
       Card card = deck.drawCard();
 
       switch(card.getSuit()) {
-        case "Spades":
+        case Spades:
           spade += 1;
           break;
-        case "Clubs":
+        case Clubs:
           club += 1;
           break;
-        case "Hearts":
+        case Hearts:
           heart += 1;
           break;
-        case "Diamonds":
+        case Diamonds:
           diamond += 1;
           break;
         default:
@@ -80,19 +82,19 @@ public class StandardDeckTest {
 
   @Test
   public void testDeal() {
-    ArrayList<Hand> zeroHand = deck.dealCards(1, 0);
+    List<Hand> zeroHand = deck.dealCards(1, 0);
     assertEquals(1, zeroHand.size());
     for (Hand hand : zeroHand) {
       assertEquals(0, hand.getCards().size());
     }
 
-    ArrayList<Hand> singleHand = deck.dealCards(1, 1);
+    List<Hand> singleHand = deck.dealCards(1, 1);
     assertEquals(1, singleHand.size());
     for (Hand hand : singleHand) {
       assertEquals(1, hand.getCards().size());
     }
 
-    ArrayList<Hand> multiHand = deck.dealCards(5, 10);
+    List<Hand> multiHand = deck.dealCards(5, 10);
     assertEquals(5, multiHand.size());
     for (Hand hand : multiHand) {
       assertEquals(10, hand.getCards().size());
@@ -102,21 +104,21 @@ public class StandardDeckTest {
   @Test
   public void testDraw() {
     Card firstDraw = deck.drawCard();
-    assertEquals(5, firstDraw.getValue());
+    assertEquals(5, firstDraw.getRank());
     assertEquals("5", firstDraw.getNamedValue());
-    assertEquals("Spades", firstDraw.getSuit());
+    assertEquals(Suit.Spades, firstDraw.getSuit());
     assertEquals(51, deck.remainingCards());
 
     Card secondDraw = deck.drawCard();
-    assertEquals(9, secondDraw.getValue());
+    assertEquals(9, secondDraw.getRank());
     assertEquals("9", secondDraw.getNamedValue());
-    assertEquals("Spades", secondDraw.getSuit());
+    assertEquals(Suit.Spades, secondDraw.getSuit());
     assertEquals(50, deck.remainingCards());
 
     Card thirdDraw = deck.drawCard();
-    assertEquals(2, thirdDraw.getValue());
+    assertEquals(2, thirdDraw.getRank());
     assertEquals("2", thirdDraw.getNamedValue());
-    assertEquals("Clubs", thirdDraw.getSuit());
+    assertEquals(Suit.Spades, thirdDraw.getSuit());
     assertEquals(49, deck.remainingCards());
   }
 

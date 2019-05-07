@@ -2,7 +2,7 @@ package game.poker.player;
 
 import java.util.Random;
 
-import game.deck.HandRank;
+import game.poker.rules.HandRank;
 
 /**
  * Represents a computer player.

@@ -1,16 +1,18 @@
-package game.poker.player;
+package game.poker.rules;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import game.deck.Card;
 import game.deck.Hand;
-import game.deck.HandRank;
+import game.deck.Suit;
 import game.util.CyclicSet;
 
 /**
@@ -18,9 +20,9 @@ import game.util.CyclicSet;
  */
 public class CardLogic {
   private Hand hand;
-  private TreeMap<String, Integer> suitCount;
+  private HashMap<Suit, Integer> suitCount;
   private TreeMap<Integer, Integer> valueCount;
-  private ArrayList<Card> focusHand;
+  private List<Card> focusHand;
 
   public CardLogic(Hand hand) {
     if (hand.getCards().size() < 1) {
@@ -38,7 +40,7 @@ public class CardLogic {
    */
   public HandRank findRank() {
     CyclicSet sequence = makeSequence();
-    ArrayList<Integer> cutValues = new ArrayList<>(valueCount.values());
+    List<Integer> cutValues = new ArrayList<>(valueCount.values());
     cutValues.remove(Collections.max(cutValues));
 
     if (sequence.last() == 14 && sequence.previousItem(14) == 13
@@ -114,10 +116,10 @@ public class CardLogic {
     }
 
     while (focusHand.size() > 5) {
-      int lowestVal = Collections.min(focusHand.stream().map(Card::getValue)
+      int lowestVal = Collections.min(focusHand.stream().map(Card::getRank)
               .collect(Collectors.toList()));
       for (int i = 0; i < focusHand.size(); i++) {
-        if (focusHand.get(i).getValue() == lowestVal) {
+        if (focusHand.get(i).getRank() == lowestVal) {
           focusHand.remove(i);
           break;
         }
@@ -182,13 +184,13 @@ public class CardLogic {
    * @return if the sequence consists entirely of the same suit.
    */
   private boolean topSuitValueMatch(TreeSet<Integer> values) {
-    String mostSuit = suitCount.entrySet().stream()
+    Suit mostSuit = suitCount.entrySet().stream()
             .filter(set -> set.getValue().equals(Collections.max(suitCount.values())))
             .collect(Collectors.toList()).get(0).getKey();
     ArrayList<Card> validCards = new ArrayList<>(hand.getCards());
     validCards.removeIf(card -> !card.getSuit().equals(mostSuit));
 
-    HashSet<Integer> validValues = validCards.stream().map(Card::getValue)
+    HashSet<Integer> validValues = validCards.stream().map(Card::getRank)
             .collect(Collectors.toCollection(HashSet::new));
 
     TreeSet<Integer> copyValues = new TreeSet<>(values);
@@ -242,14 +244,14 @@ public class CardLogic {
       encountered = false;
     }
 
-    focusHand.removeIf(c -> !highKeys.contains(c.getValue()));
+    focusHand.removeIf(c -> !highKeys.contains(c.getRank()));
   }
 
   /**
    * Removes from the ranked hand cards whose suit count does not equal at least five.
    */
   private void flushHand() {
-    String straightSuit = suitCount.entrySet().stream().filter(k -> k.getValue() >= 5)
+    Suit straightSuit = suitCount.entrySet().stream().filter(k -> k.getValue() >= 5)
             .collect(Collectors.toList()).get(0).getKey();
 
     focusHand.removeIf(s -> !s.getSuit().equals(straightSuit));
@@ -259,7 +261,7 @@ public class CardLogic {
    * Removes from the ranked hand cards not in the highest numerical sequence.
    */
   private void straightHand() {
-    focusHand.removeIf(s -> !makeSequence().contains(s.getValue()));
+    focusHand.removeIf(s -> !makeSequence().contains(s.getRank()));
   }
 
   /**

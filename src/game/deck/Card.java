@@ -4,52 +4,52 @@ package game.deck;
  * Represents a standard playing card.
  */
 public class Card {
-  private String suit;
-  private int value;
+  private Suit suit;
+  private Rank rank;
 
   /**
    * Constructs a playing card.
    * @param suit the type of suit
-   * @param value the numeric value
+   * @param rank the numeric rank
    */
-  public Card(String suit, int value) {
+  public Card(Suit suit, Rank rank) {
     this.suit = suit;
-    this.value = value;
+    this.rank = rank;
   }
 
   /**
    * Gets the suit of this card.
    * @return the name of this card's suit
    */
-  public String getSuit() {
+  public Suit getSuit() {
     return this.suit;
   }
 
   /**
-   * Gets the named value of this card.
-   * @return the named value of this card
+   * Gets the named rank of this card.
+   * @return the named rank of this card
    */
   public String getNamedValue() {
 
-    switch (value) {
-      case 14:
+    switch (rank) {
+      case Ace:
         return "Ace";
-      case 13:
+      case King:
         return "King";
-      case 12:
+      case Queen:
         return "Queen";
-      case 11:
+      case Jack:
         return "Jack";
       default:
-        return Integer.toString(this.value);
+        return Integer.toString(rank.getValue());
     }
   }
 
   /**
-   * Gets the numeric value of this card.
-   * @return the numeric value of this card
+   * Gets the numeric rank of this card.
+   * @return the numeric rank of this card
    */
-  public int getValue() {
-    return this.value;
+  public int getRank() {
+    return rank.getValue();
   }
 }

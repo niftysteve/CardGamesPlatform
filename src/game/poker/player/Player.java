@@ -1,10 +1,11 @@
 package game.poker.player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import game.deck.Card;
 import game.deck.Hand;
-import game.deck.HandRank;
+import game.poker.rules.HandRank;
 
 public interface Player {
 
@@ -43,7 +44,7 @@ public interface Player {
    * Retrieves this player's hand.
    * @return this player's hand
    */
-  ArrayList<Card> getHand();
+  List<Card> getHand();
 
   /**
    * Converts this player's hand to string form.

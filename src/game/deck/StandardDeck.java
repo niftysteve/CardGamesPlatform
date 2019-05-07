@@ -3,6 +3,7 @@ package game.deck;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -11,8 +12,8 @@ import java.util.stream.IntStream;
  */
 public class StandardDeck implements Deck {
 
-  private ArrayList<Card> cards = new ArrayList<>();
-  private ArrayList<Card> streamCards;
+  private List<Card> cards = new ArrayList<>();
+  private List<Card> streamCards;
   private Random rand;
 
   /**
@@ -36,16 +37,9 @@ public class StandardDeck implements Deck {
    * Creates the deck of cards and shuffles it.
    */
   private void createDeck() {
-    ArrayList<Integer> values = new ArrayList<>(Arrays.asList(2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-            12, 13, 14));
-    ArrayList<String> suits = new ArrayList<>(Arrays.asList("Clubs", "Hearts", "Spades", "Diamonds"));
-    //CLUBS("♣"), DIAMONDS("♦"), HEARTS("♥"), SPADES("♠");
-    for (String shape : suits) {
-      for (Integer value : values) {
-        Card card = new Card(shape, value);
-        cards.add(card);
-      }
-    }
+    List<Rank> values = new ArrayList<>(Arrays.asList(Rank.values()));
+    List<Suit> suits = new ArrayList<>(Arrays.asList(Suit.values()));
+    values.forEach(val -> suits.forEach(shape -> cards.add(new Card(shape, val))));
     shuffle();
   }
 
@@ -57,7 +51,7 @@ public class StandardDeck implements Deck {
   }
 
   @Override
-  public ArrayList<Hand> dealCards(int players, int amount) {
+  public List<Hand> dealCards(int players, int amount) {
 
     if (players < 1) {
       throw new IllegalArgumentException("No players to deal");
@@ -67,20 +61,16 @@ public class StandardDeck implements Deck {
       throw new IllegalArgumentException("Too many players and cards to deal");
     }
 
-    ArrayList<Hand> allHands = new ArrayList<>();
+    List<Hand> allHands = new ArrayList<>();
 
-    for (int i = 0; i < players; i++) {
-      allHands.add(new Hand());
-    }
+    IntStream.range(0, players).forEach(n -> allHands.add(new Hand()));
 
-    for (int j = 0; j < amount; j++) {
-      for (Hand curHand : allHands) {
-        int index = rand.nextInt(streamCards.size());
-        Card card = streamCards.get(index);
-        curHand.addCard(card);
-        streamCards.remove(index);
-      }
-    }
+    IntStream.range(0, amount).forEach(n -> allHands.forEach(hand -> {
+      int index = rand.nextInt(streamCards.size());
+      Card card = streamCards.get(index);
+      hand.addCard(card);
+      streamCards.remove(index);
+    }));
 
     return allHands;
   }

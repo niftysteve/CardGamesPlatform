@@ -3,17 +3,18 @@ package game.poker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import game.deck.Card;
 import game.deck.Deck;
 import game.deck.Hand;
-import game.deck.HandRank;
 import game.deck.StandardDeck;
 import game.poker.player.ComputerPlayer;
 import game.poker.player.Player;
 import game.poker.player.PokerPlayer;
+import game.poker.rules.HandRank;
 import game.util.CyclicSet;
 
 /**
@@ -75,7 +76,7 @@ public class PokerGame {
    */
   public void deal() {
     deck.shuffle();
-    ArrayList<Hand> playerHands = deck.dealCards(players.size(), 2);
+    List<Hand> playerHands = deck.dealCards(players.size(), 2);
     players.forEach(p -> p.initHand(playerHands.remove(0)));
   }
 
