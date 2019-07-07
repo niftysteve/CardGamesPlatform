@@ -5,8 +5,8 @@ import java.util.List;
 
 import game.deck.Card;
 import game.deck.Hand;
+import game.poker.rules.FindRank;
 import game.poker.rules.HandRank;
-import game.poker.rules.CardLogic;
 
 /**
  * Represents a poker player.
@@ -57,7 +57,6 @@ public class PokerPlayer implements Player {
 
   @Override
   public void bet(int amount, boolean status) {
-
     if (!raised) {
       if (amount > money) {
         amount = money;
@@ -76,16 +75,16 @@ public class PokerPlayer implements Player {
 
   @Override
   public HandRank getRank() {
-    CardLogic logic = new CardLogic(hand);
+    FindRank logic = new FindRank(hand);
 
-    return logic.findRank();
+    return logic.getRank();
   }
 
   @Override
   public Hand getRankedHand() {
-    CardLogic logic = new CardLogic(hand);
+    FindRank logic = new FindRank(hand);
 
-    return logic.rankedHand();
+    return logic.getRankedHand();
   }
 
   @Override

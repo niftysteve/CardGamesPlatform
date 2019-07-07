@@ -7,7 +7,7 @@ import java.util.Collections;
 import game.deck.Card;
 import game.deck.Rank;
 import game.deck.Suit;
-import game.poker.rules.CardLogic;
+import game.poker.rules.FindRank;
 import game.deck.Hand;
 import game.poker.rules.HandRank;
 
@@ -18,7 +18,7 @@ import static junit.framework.TestCase.assertTrue;
  * Tests for determining hand ranks in basic scenarios while restrained to a standard Rank.FiveRank.Two-card deck
  * and seven card poker hand (two from hand, five from community).
  */
-public class BasicCardLogicTest extends AbstractCardLogicTest {
+public class BasicFindRankTest extends AbstractFindRankTest {
 
   @Test
   public void testFindRoyalFlush() {
@@ -30,10 +30,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Spades, Rank.Nine));
     hand.addCard(new Card(Suit.Hearts, Rank.Queen));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Royal_Flush, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Royal_Flush, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(14, (int) Collections.max(ranked.getValues()));
     assertEquals(10, (int) Collections.min(ranked.getValues()));
   }
@@ -48,11 +48,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Hearts, Rank.Eight));
     hand.addCard(new Card(Suit.Diamonds, Rank.Ten));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Straight_Flush, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Straight_Flush, logic.getRank());
 
-
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(14, (int) Collections.max(ranked.getValues()));
     assertEquals(2, (int) Collections.min(ranked.getValues()));
     assertTrue(ranked.getValues().contains(Rank.Five.getValue()));
@@ -68,10 +67,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Hearts, Rank.Two));
     hand.addCard(new Card(Suit.Hearts, Rank.Jack));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Four_Kind, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Four_Kind, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(4, (int) ranked.allValues().get(Rank.Jack.getValue()));
   }
 
@@ -85,10 +84,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Spades, Rank.Seven));
     hand.addCard(new Card(Suit.Spades, Rank.Jack));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Full_House, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Full_House, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(11, (int) Collections.max(ranked.getValues()));
     assertEquals(10, (int) Collections.min(ranked.getValues()));
   }
@@ -103,10 +102,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Clubs, Rank.Jack));
     hand.addCard(new Card(Suit.Hearts, Rank.Ten));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Flush, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Flush, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(5, Collections.frequency(ranked.getSuits(),Suit.Spades));
   }
 
@@ -120,10 +119,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Spades, Rank.Three));
     hand.addCard(new Card(Suit.Spades, Rank.Two));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Straight, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Straight, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(12, (int) Collections.max(ranked.getValues()));
     assertEquals(8, (int) Collections.min(ranked.getValues()));
   }
@@ -138,10 +137,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Hearts, Rank.Two));
     hand.addCard(new Card(Suit.Hearts, Rank.Ace));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Three_Kind, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Three_Kind, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(14, (int) Collections.max(ranked.getValues()));
     assertEquals(3, (int) ranked.allValues().get(Rank.Six.getValue()));
   }
@@ -156,10 +155,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Hearts, Rank.Two));
     hand.addCard(new Card(Suit.Hearts, Rank.King));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Two_Pair, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Two_Pair, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(13, (int) Collections.max(ranked.getValues()));
     assertEquals(2, (int) ranked.allValues().get(Rank.Six.getValue()));
     assertEquals(2, (int) ranked.allValues().get(Rank.Nine.getValue()));
@@ -175,10 +174,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Spades, Rank.Nine));
     hand.addCard(new Card(Suit.Spades, Rank.Five));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.Pair, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.Pair, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(2, (int) ranked.allValues().get(Rank.Five.getValue()));
   }
 
@@ -192,10 +191,10 @@ public class BasicCardLogicTest extends AbstractCardLogicTest {
     hand.addCard(new Card(Suit.Spades, Rank.Four));
     hand.addCard(new Card(Suit.Spades, Rank.Two));
 
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(HandRank.High_Card, logic.findRank());
+    FindRank logic = new FindRank(hand);
+    assertEquals(HandRank.High_Card, logic.getRank());
 
-    Hand ranked = logic.rankedHand();
+    Hand ranked = logic.getRankedHand();
     assertEquals(14, (int) Collections.max(ranked.getValues()));
     for (Integer value : ranked.allValues().values()) {
       assertEquals(1, (int) value);

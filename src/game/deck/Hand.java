@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * Represents a hand of cards.
  */
@@ -23,6 +22,10 @@ public class Hand {
    */
   public Hand(List<Card> hand) {
     this.hand = hand;
+  }
+
+  public Hand(Hand hand) {
+    this.hand = hand.getCards();
   }
 
   /**

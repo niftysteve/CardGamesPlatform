@@ -1,6 +1,7 @@
 package game.graphics;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import game.deck.Card;
 import javafx.geometry.Pos;
@@ -30,7 +31,7 @@ public class CardTable extends BorderPane {
    * Displays cards in the center of the panel.
    * @param cards the cards to be displayed
    */
-  public void centerDisplay(ArrayList<Card> cards) {
+  public void centerDisplay(List<Card> cards) {
     HBox box = new HBox(10);
     box.setAlignment(Pos.CENTER);
     setCenter(cardDisplay(cards, box));
@@ -40,7 +41,7 @@ public class CardTable extends BorderPane {
    * Displays cards at the bottom of the panel.
    * @param cards the cards to be displayed
    */
-  public void bottomDisplay(ArrayList<Card> cards) {
+  public void bottomDisplay(List<Card> cards) {
     HBox box = new HBox(10);
     box.setAlignment(Pos.CENTER);
     setBottom(cardDisplay(cards, box));
@@ -50,7 +51,7 @@ public class CardTable extends BorderPane {
    * Displays cards at the top of the panel.
    * @param cards the cards to be displayed
    */
-  public void topDisplay(ArrayList<Card> cards) {
+  public void topDisplay(List<Card> cards) {
     HBox box = new HBox(10);
     box.setAlignment(Pos.CENTER);
     setCenter(cardDisplay(cards, box));
@@ -60,7 +61,7 @@ public class CardTable extends BorderPane {
    * Displays cards on the left of the panel.
    * @param cards the cards to be displayed
    */
-  public void leftDisplay(ArrayList<Card> cards) {
+  public void leftDisplay(List<Card> cards) {
     VBox box = new VBox(10);
     box.setAlignment(Pos.CENTER);
     setBottom(cardDisplay(cards, box));
@@ -70,7 +71,7 @@ public class CardTable extends BorderPane {
    * Displays cards on the right of the panel.
    * @param cards the cards to be displayed
    */
-  public void rightDisplay(ArrayList<Card> cards) {
+  public void rightDisplay(List<Card> cards) {
     VBox box = new VBox(10);
     box.setAlignment(Pos.CENTER);
     setCenter(cardDisplay(cards, box));
@@ -81,7 +82,7 @@ public class CardTable extends BorderPane {
    * @param cards the cards to be drawn
    * @param pane the panel where the cards are drawn
    */
-  private Pane cardDisplay(ArrayList<Card> cards, Pane pane) {
+  private Pane cardDisplay(List<Card> cards, Pane pane) {
     for (Card card : cards) {
       Rectangle background = new Rectangle(100, 140);
       background.setArcWidth(20);

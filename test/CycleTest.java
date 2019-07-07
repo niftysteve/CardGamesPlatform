@@ -26,10 +26,10 @@ public class CycleTest {
 
   @Test
   public void testPrevItem() {
-    int nextOne = linearCycle.previousItem(5);
+    int nextOne = linearCycle.previousFrom(5);
     assertEquals(4, nextOne);
 
-    int loopedItem = linearCycle.previousItem(0);
+    int loopedItem = linearCycle.previousFrom(0);
     assertEquals(10, loopedItem);
   }
 

@@ -3,15 +3,15 @@ package deck;
 import org.junit.After;
 import org.junit.Before;
 
-import game.poker.rules.CardLogic;
+import game.poker.rules.FindRank;
 import game.deck.Hand;
 
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * Maintains consistency across CardLogic tests.
+ * Maintains consistency across HandLogic tests.
  */
-public abstract class AbstractCardLogicTest {
+public abstract class AbstractFindRankTest {
   protected Hand hand;
 
   @Before
@@ -21,7 +21,7 @@ public abstract class AbstractCardLogicTest {
 
   @After
   public void handSize() {
-    CardLogic logic = new CardLogic(hand);
-    assertEquals(5, logic.rankedHand().getCards().size());
+    FindRank logic = new FindRank(hand);
+    assertEquals(5, logic.getRankedHand().getCards().size());
   }
 }

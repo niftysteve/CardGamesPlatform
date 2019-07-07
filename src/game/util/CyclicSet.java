@@ -44,7 +44,7 @@ public class CyclicSet extends TreeSet<Integer> {
    * @param start the position in the set to start from
    * @return the previous item in the set
    */
-  public Integer previousItem(int start) {
+  public Integer previousFrom(int start) {
 
     if (lower(start) != null) {
       return lower(start);
@@ -74,7 +74,7 @@ public class CyclicSet extends TreeSet<Integer> {
    */
   public Integer fromEnd(int start, int distance) {
     int[] result = new int[]{start};
-    IntStream.range(0, distance).forEach(n -> result[0] = previousItem(result[0]));
+    IntStream.range(0, distance).forEach(n -> result[0] = previousFrom(result[0]));
     return result[0];
   }
 }
