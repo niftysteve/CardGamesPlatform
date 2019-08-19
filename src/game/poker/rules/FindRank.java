@@ -20,14 +20,33 @@ public class FindRank {
   private Hand hand;
   private RankLogic rank;
 
+  public FindRank() {
+    this.hand = null;
+    this.logic = null;
+    this.rank = null;
+  }
   /**
    * Constructs a FindRank object.
    * @param hand the poker hand
    */
   public FindRank(Hand hand) {
+    setHand(hand);
+  }
+
+  public void setHand(Hand hand) {
     this.hand = hand;
     this.logic = new HandOperations(hand);
     this.rank = logicResult();
+  }
+
+  public HandRank getRank(Hand base, List<Card> board) {
+    board.forEach(base::addCard);
+    Hand spare = hand;
+    this.hand = base;
+    RankLogic rank = logicResult();
+    this.hand = spare;
+
+    return rank.getRank();
   }
 
   /**

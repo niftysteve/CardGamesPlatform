@@ -14,6 +14,7 @@ import game.poker.rules.HandRank;
 public class PokerPlayer implements Player {
   private boolean playing = true;
   private boolean raised = false;
+  private boolean isHuman;
   private int curBet = 0;
   private int port;
   private int money;

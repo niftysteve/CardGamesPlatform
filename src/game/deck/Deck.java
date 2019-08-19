@@ -37,4 +37,8 @@ public interface Deck {
    * @return the amount of cards left
    */
   int remainingCards();
+
+  List<Card> allCards();
+
+  void removeKnown(List<Card> known);
 }

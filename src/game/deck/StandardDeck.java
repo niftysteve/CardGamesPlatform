@@ -22,6 +22,7 @@ public class StandardDeck implements Deck {
   public StandardDeck() {
     this.rand = new Random();
     createDeck();
+    shuffle();
   }
 
   /**
@@ -31,6 +32,20 @@ public class StandardDeck implements Deck {
   public StandardDeck(int seed) {
     this.rand = new Random(seed);
     createDeck();
+    shuffle();
+  }
+
+  public StandardDeck(boolean remove, List<Card> known) {
+    this.rand = new Random();
+    createDeck();
+
+    if (remove) {
+      shuffle();
+      removeKnown(known);
+    }
+    else {
+      this.streamCards = known;
+    }
   }
 
   /**
@@ -40,7 +55,6 @@ public class StandardDeck implements Deck {
     List<Rank> values = new ArrayList<>(Arrays.asList(Rank.values()));
     List<Suit> suits = new ArrayList<>(Arrays.asList(Suit.values()));
     values.forEach(val -> suits.forEach(shape -> cards.add(new Card(shape, val))));
-    shuffle();
   }
 
   @Override
@@ -96,5 +110,15 @@ public class StandardDeck implements Deck {
   @Override
   public int remainingCards() {
     return streamCards.size();
+  }
+
+  @Override
+  public List<Card> allCards() {
+    return new ArrayList<>(streamCards);
+  }
+
+  @Override
+  public void removeKnown(List<Card> known) {
+    streamCards.removeIf(known::contains);
   }
 }

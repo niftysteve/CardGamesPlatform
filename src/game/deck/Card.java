@@ -17,6 +17,11 @@ public class Card {
     this.rank = rank;
   }
 
+  public Card(Card other) {
+    this.suit = other.suit;
+    this.rank = other.rank;
+  }
+
   /**
    * Gets the suit of this card.
    * @return the name of this card's suit
@@ -51,5 +56,24 @@ public class Card {
    */
   public int getRank() {
     return rank.getValue();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Card card = (Card) o;
+
+    if (suit != card.suit) return false;
+    return rank == card.rank;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = suit.hashCode();
+    result = 31 * result + rank.hashCode();
+    return result;
   }
 }
