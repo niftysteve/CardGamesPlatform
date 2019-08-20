@@ -1,10 +1,6 @@
 package game.deck;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Represents a hand of cards.
@@ -22,6 +18,11 @@ public class Hand {
    */
   public Hand(List<Card> hand) {
     this.hand = hand;
+  }
+
+  public Hand(Card... cards) {
+    this.hand = new ArrayList<>();
+    hand.addAll(Arrays.asList(cards));
   }
 
   public Hand(Hand hand) {

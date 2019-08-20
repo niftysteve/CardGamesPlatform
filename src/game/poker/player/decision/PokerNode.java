@@ -23,7 +23,7 @@ public class PokerNode {
   }
 
   public PokerNode getBestChild() {
-    return Collections.max(children, Comparator.comparingDouble(node -> node.getState().getScore()));
+    return Collections.max(children, Comparator.comparingDouble(node -> node.getState().calculateScore()));
   }
 
   public PokerNode getRandomChild() {

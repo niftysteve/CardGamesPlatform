@@ -32,20 +32,12 @@ public class StandardDeck implements Deck {
   public StandardDeck(int seed) {
     this.rand = new Random(seed);
     createDeck();
-    shuffle();
   }
 
-  public StandardDeck(boolean remove, List<Card> known) {
+  public StandardDeck(List<Card> known) {
     this.rand = new Random();
     createDeck();
-
-    if (remove) {
-      shuffle();
-      removeKnown(known);
-    }
-    else {
-      this.streamCards = known;
-    }
+    removeKnown(known);
   }
 
   /**
@@ -55,6 +47,7 @@ public class StandardDeck implements Deck {
     List<Rank> values = new ArrayList<>(Arrays.asList(Rank.values()));
     List<Suit> suits = new ArrayList<>(Arrays.asList(Suit.values()));
     values.forEach(val -> suits.forEach(shape -> cards.add(new Card(shape, val))));
+    shuffle();
   }
 
   @Override
@@ -99,6 +92,15 @@ public class StandardDeck implements Deck {
   }
 
   @Override
+  public Card drawAtPosition(int position) {
+    if (position >= streamCards.size()) {
+      throw new IllegalArgumentException("Can't draw at that position");
+    }
+
+    return streamCards.remove(position);
+  }
+
+  @Override
   public void burnCards(int amount) {
     if (streamCards.size() < 1) {
       throw new IllegalArgumentException("No more cards to burn");
@@ -120,5 +122,10 @@ public class StandardDeck implements Deck {
   @Override
   public void removeKnown(List<Card> known) {
     streamCards.removeIf(known::contains);
+  }
+
+  @Override
+  public void setStreamCards(List<Card> content) {
+    this.streamCards = content;
   }
 }

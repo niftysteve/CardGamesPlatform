@@ -41,10 +41,11 @@ public class FindRank {
 
   public HandRank getRank(Hand base, List<Card> board) {
     board.forEach(base::addCard);
-    Hand spare = hand;
     this.hand = base;
+    this.logic = new HandOperations(base);
     RankLogic rank = logicResult();
-    this.hand = spare;
+    this.hand = null;
+    this.logic = null;
 
     return rank.getRank();
   }

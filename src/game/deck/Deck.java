@@ -26,6 +26,8 @@ public interface Deck {
    */
   Card drawCard();
 
+  Card drawAtPosition(int position);
+
   /**
    * Removes a given amount of cards from the top of the deck.
    * @param amount the number of cards to remove
@@ -41,4 +43,6 @@ public interface Deck {
   List<Card> allCards();
 
   void removeKnown(List<Card> known);
+
+  void setStreamCards(List<Card> content);
 }

@@ -17,8 +17,8 @@ public class PokerState {
   private List<Card> board;
   private List<Hand> opponents;
   private Deck deck;
-  private int visit;
-  private double score;
+  private int visit = 0;
+  private double winCount = 0;
 
   public PokerState(List<Card> hand, List<Card> board, List<Hand> opponents, Deck deck) {
     this.hand = hand;
@@ -35,15 +35,15 @@ public class PokerState {
 
   public List<PokerState> generateStates() {
     List<PokerState> states = new ArrayList<>();
-    List<Card> baseCards = deck.allCards();
-    for (int i = 0; i < baseCards.size(); i++) {
-      Card current = baseCards.get(i);
-      List<Card> excludeCurrent = new ArrayList<>(baseCards);
-      excludeCurrent.remove(i);
-      Deck remaining = new StandardDeck(false, excludeCurrent);
-      List<Card> end = board;
-      end.add(current);
-      PokerState state = new PokerState(hand, end, opponents, remaining);
+    for (int i = 0; i < deck.remainingCards(); i++) {
+      Deck spareDeck = new StandardDeck(1);
+      spareDeck.setStreamCards(deck.allCards());
+      Card drawnCard = spareDeck.drawAtPosition(i);
+
+      List<Card> newCommunity = board;
+      newCommunity.add(drawnCard);
+
+      PokerState state = new PokerState(hand, newCommunity, opponents, spareDeck);
       states.add(state);
     }
 
@@ -70,6 +70,10 @@ public class PokerState {
     Card card = deck.drawCard();
     board.add(card);
   }
+  
+  public double calculateScore() {
+    return winCount / (double) visit;
+  }
 
   public boolean stillPlaying() {
     return this.board.size() < 5;
@@ -83,11 +87,11 @@ public class PokerState {
     return visit;
   }
 
-  public double getScore() {
-    return score;
+  public double getWinCount() {
+    return winCount;
   }
   
-  public void addScore(int toAdd) {
-    this.score += toAdd;
+  public void addWinCount() {
+    this.winCount += 1;
   }
 }

@@ -13,7 +13,7 @@ public interface Player {
    * Adds a card to this player's hand.
    * @param cards the new card to be added
    */
-  void addCard(ArrayList<Card> cards);
+  void addCard(List<Card> cards);
 
   /**
    * Gives this player a new hand.

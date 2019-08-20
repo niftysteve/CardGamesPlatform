@@ -44,7 +44,7 @@ public class PokerPlayer implements Player {
   }
 
   @Override
-  public void addCard(ArrayList<Card> cards) {
+  public void addCard(List<Card> cards) {
     for (Card c : cards) {
       hand.addCard(c);
     }

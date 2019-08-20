@@ -21,8 +21,8 @@ import game.util.CyclicSet;
  * Represents the game of Poker.
  */
 public class PokerGame {
-  private ArrayList<Player> players = new ArrayList<>();
-  private ArrayList<Card> communityCards = new ArrayList<>();
+  private List<Player> players = new ArrayList<>();
+  private List<Card> communityCards = new ArrayList<>();
   private int button = 0;
   private Deck deck;
 
