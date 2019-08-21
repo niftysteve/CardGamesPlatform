@@ -18,10 +18,21 @@ import game.poker.player.decision.PokerState;
 import game.poker.player.strategy.*;
 import game.poker.rules.FindRank;
 
+/**
+ * Decides an amount to bet by utilizing Monte Carlo Tree Search.
+ */
 public class ComputerBrain {
+  private static final int SAMPLES = 1000;
   private PokerNode root;
   private int currentBet;
 
+  /**
+   * Constructs a ComputerBrain object given the current state of the game.
+   * @param hand the hand of the computer
+   * @param board the cards in the community
+   * @param players the number of players in the game, excluding this one
+   * @param currentBet the bet currently on the line
+   */
   public ComputerBrain(List<Card> hand, List<Card> board, int players, int currentBet) {
     List<Card> exclude = Stream.concat(hand.stream(), board.stream()).collect(Collectors.toList());
     Deck base = new StandardDeck(exclude);
@@ -33,8 +44,12 @@ public class ComputerBrain {
     this.currentBet = currentBet;
   }
 
+  /**
+   * Calculates a bet via Monte Carlo Tree Search.
+   * @return an appropriate amount to bet
+   */
   public int calculateBet() {
-    int count = 100;
+    int count = SAMPLES;
     while (count > 0) {
       // Phase 1 - Selection
       PokerNode promisingNode = selectPromisingNode(root);
@@ -50,16 +65,18 @@ public class ComputerBrain {
         nodeToExplore = promisingNode.getRandomChild();
       }
 
-      boolean result = simulateRandomPlayout(nodeToExplore);
+      double result = simulateRandomPlayout(nodeToExplore);
       // Phase 4 - Update
       backPropagation(nodeToExplore, result);
       count--;
     }
 
     PokerNode winner = root.getBestChild();
-    double score = winner.getState().calculateScore();
-    BetStrategy strategy;
+    double score = winner.calculateScore();
 
+    System.out.println(score);
+
+    BetStrategy strategy;
     if (score > 0.7) {
       strategy = new HighAggroStrat();
     }
@@ -76,31 +93,40 @@ public class ComputerBrain {
     return strategy.calcBet(currentBet);
   }
 
-  private double uctValue(int total, int visit, double wins) {
-    if (visit == 0) {
+  /**
+   * Calculates the Upper Confidence Bound 1 Applied to Trees of a node.
+   * @param totalVisits the total amount of times nodes in this branch has been visited
+   * @param currentVisits the amount of times this node has been visited
+   * @param currentWins the amount of times this node has won
+   * @return the UCT value of a node
+   */
+  private double uctValue(int totalVisits, int currentVisits, double currentWins) {
+    if (currentVisits == 0) {
       return Integer.MAX_VALUE;
     }
 
-    return ((double) wins / (double) visit) + 1.41 * Math.sqrt(Math.log(total) / (double) visit);
+    return (currentWins / (double) currentVisits) + 1.41 * Math.sqrt(Math.log(totalVisits) / (double) currentVisits);
   }
 
-
-  private PokerNode findBestNode(PokerNode node) {
-    int parentVisit = node.getState().getVisit();
-    return Collections.max(node.getChildren(), Comparator.comparing(child ->
-            uctValue(parentVisit, child.getState().getVisit(), child.getState().getWinCount())));
-  }
-
-
+  /**
+   * Selects the best child node based on their UCT value
+   * @param root
+   * @return
+   */
   private PokerNode selectPromisingNode(PokerNode root) {
     PokerNode base = root;
     while (base.getChildren().size() != 0) {
-      base = findBestNode(base);
+      int parentVisits = base.getState().getVisit();
+      base = Collections.max(base.getChildren(), Comparator.comparing(child ->
+              uctValue(parentVisits, child.getState().getVisit(), child.getState().getWinCount())));
     }
     return base;
   }
 
-
+  /**
+   * Expands a node by generating all of its possible children.
+   * @param node the node to expand
+   */
   private void expandNode(PokerNode node) {
     List<PokerState> states = node.getState().generateStates();
     states.forEach(state -> {
@@ -110,36 +136,43 @@ public class ComputerBrain {
     });
   }
 
-  private void backPropagation(PokerNode nodeToExplore, boolean winner) {
-    PokerNode tempNode = nodeToExplore;
+  /**
+   * Propagates the results of a playout back to the root.
+   * @param leaf the leaf from which to start the back propagation
+   * @param winnings the win factor
+   */
+  private void backPropagation(PokerNode leaf, double winnings) {
+    PokerNode tempNode = leaf;
     while (tempNode != null) {
       tempNode.getState().incrementVisit();
-      if (winner) {
-        tempNode.getState().addWinCount();
-      }
+      tempNode.getState().incrementWins(winnings);
       tempNode = tempNode.getParent();
     }
   }
 
-
-  private boolean simulateRandomPlayout(PokerNode node) {
+  /**
+   * Simulates playing a game to the end.
+   * @param node the beginning state of the game
+   * @return the result of the playout
+   */
+  private double simulateRandomPlayout(PokerNode node) {
     PokerNode tempNode = new PokerNode(node);
     PokerState tempState = tempNode.getState();
-//    boolean outcome = false;
-//
-//    while (tempState.stillPlaying()) {
-//      tempState.randomPlay();
-//      outcome = tempState.isWinner();
-//    }
-//    return outcome;
-    if (tempState.stillPlaying()) {
+
+    while (tempState.stillPlaying()) {
       tempState.randomPlay();
     }
 
-    return tempState.isWinner();
+    return tempState.winFactor();
   }
 
-
+  /**
+   * Determines the best possible hand each opponent could have.
+   * @param board the current community cards
+   * @param deck the current deck
+   * @param players the total amount of players, excluding this one
+   * @return a list of best possible hands
+   */
   private List<Hand> optimalHands(List<Card> board, Deck deck, int players) {
     FindRank logic = new FindRank();
     List<Card> source = deck.allCards();
@@ -158,7 +191,7 @@ public class ComputerBrain {
         Hand option = new Hand(first, second);
         optimal.add(option);
 
-        if (optimal.size() > players) {
+        while (optimal.size() > players) {
           optimal.poll();
         }
       }
@@ -166,6 +199,4 @@ public class ComputerBrain {
 
     return new ArrayList<>(optimal);
   }
-
-
 }

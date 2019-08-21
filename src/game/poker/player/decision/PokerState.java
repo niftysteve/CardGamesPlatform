@@ -30,6 +30,7 @@ public class PokerState {
   private HandRank stateRank() {
     List<Card> allCards = Stream.concat(hand.stream(), board.stream()).collect(Collectors.toList());
     FindRank logic = new FindRank(new Hand(allCards));
+
     return logic.getRank();
   }
 
@@ -40,7 +41,7 @@ public class PokerState {
       spareDeck.setStreamCards(deck.allCards());
       Card drawnCard = spareDeck.drawAtPosition(i);
 
-      List<Card> newCommunity = board;
+      List<Card> newCommunity = new ArrayList<>(board);
       newCommunity.add(drawnCard);
 
       PokerState state = new PokerState(hand, newCommunity, opponents, spareDeck);
@@ -50,7 +51,7 @@ public class PokerState {
     return states;
   }
   
-  public boolean isWinner() {
+  public double winFactor() {
     HandRank maxRank = HandRank.High_Card;
     for (Hand opponent : opponents) {
       List<Card> opponentHand = opponent.getCards();
@@ -62,17 +63,27 @@ public class PokerState {
         maxRank = opponentRank;
       }
     }
-    
-    return stateRank().getValue() > maxRank.getValue();
+
+    int oppValue = maxRank.getValue();
+    int selfValue = stateRank().getValue();
+
+    if (selfValue > oppValue) {
+      return 1;
+    }
+    else if (selfValue + 1 > oppValue) {
+      return 0.66;
+    }
+    else if (selfValue + 2 > oppValue) {
+      return 0.33;
+    }
+    else {
+      return 0;
+    }
   }
 
   public void randomPlay() {
     Card card = deck.drawCard();
     board.add(card);
-  }
-  
-  public double calculateScore() {
-    return winCount / (double) visit;
   }
 
   public boolean stillPlaying() {
@@ -91,7 +102,7 @@ public class PokerState {
     return winCount;
   }
   
-  public void addWinCount() {
-    this.winCount += 1;
+  public void incrementWins(double count) {
+    this.winCount += count;
   }
 }

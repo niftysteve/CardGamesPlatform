@@ -2,7 +2,6 @@ package ai;
 
 import game.deck.*;
 import game.poker.player.ComputerBrain;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,7 +27,28 @@ public class MonteCarloTest {
     board.add(aHearts);
     board.add(aSpades);
     board.add(spare);
-//    board.add(spare2);
+    board.add(spare2);
+
+    ComputerBrain brain = new ComputerBrain(hand, board, 1, 100);
+    int result = brain.calculateBet();
+    System.out.println(result);
+  }
+
+  @Test
+  public void lowAggroTest() {
+    List<Card> hand = new ArrayList<>();
+    List<Card> board = new ArrayList<>();
+    Card c1 = new Card(Suit.Clubs, Rank.Two);
+    Card c2 = new Card(Suit.Diamonds, Rank.Five);
+    Card c3 = new Card(Suit.Hearts, Rank.Five);
+    Card c4 = new Card(Suit.Spades, Rank.Six);
+    Card c5 = new Card(Suit.Spades, Rank.Seven);
+
+    hand.add(c1);
+    hand.add(c2);
+    board.add(c3);
+    board.add(c4);
+    board.add(c5);
 
     ComputerBrain brain = new ComputerBrain(hand, board, 1, 100);
     int result = brain.calculateBet();

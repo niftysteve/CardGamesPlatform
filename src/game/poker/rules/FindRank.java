@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import game.deck.Card;
 import game.deck.Hand;
@@ -40,9 +41,10 @@ public class FindRank {
   }
 
   public HandRank getRank(Hand base, List<Card> board) {
-    board.forEach(base::addCard);
-    this.hand = base;
-    this.logic = new HandOperations(base);
+    List<Card> allCards = Stream.concat(base.getCards().stream(), board.stream()).collect(Collectors.toList());
+    Hand current = new Hand(allCards);
+    this.hand = current;
+    this.logic = new HandOperations(current);
     RankLogic rank = logicResult();
     this.hand = null;
     this.logic = null;

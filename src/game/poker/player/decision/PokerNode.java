@@ -23,13 +23,22 @@ public class PokerNode {
   }
 
   public PokerNode getBestChild() {
-    return Collections.max(children, Comparator.comparingDouble(node -> node.getState().calculateScore()));
+    return Collections.max(children, Comparator.comparing(node -> node.getState().getVisit()));
   }
 
   public PokerNode getRandomChild() {
     int possibleMoves = this.children.size();
     int selection = (int) (Math.random() * possibleMoves);
     return this.children.get(selection);
+  }
+
+  public int totalVisits() {
+
+    return children.stream().map(node -> node.getState().getVisit()).reduce(0, Integer::sum);
+  }
+
+  public double calculateScore() {
+    return state.getWinCount() / (double) state.getVisit();
   }
 
   public PokerState getState() {

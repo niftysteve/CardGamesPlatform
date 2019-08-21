@@ -2,30 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5400a755-42de-4c0b-aaa2-ca947f89ea53" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test/ai/MonteCarloTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/META-INF/CardGamesPlatform.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Card$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Card$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Card.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Deck.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Hand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Hand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Rank.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Rank.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CardGamesPlatform.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CardGamesPlatform.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/StandardDeck.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/StandardDeck.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Suit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Suit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/graphics/CardTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/graphics/CardTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/graphics/PokerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/graphics/PokerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/LaunchPoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/LaunchPoker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/PokerGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/PokerGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/cmdflow/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/cmdflow/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/cmdflow/PlayPoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/cmdflow/PlayPoker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/cmdflow/PokerCMD.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/cmdflow/PokerCMD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/player/ComputerPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/player/ComputerPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/player/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/player/PokerPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/player/PokerPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$Flush.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$Flush.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$FourKind.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$FourKind.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$FullHouse.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$FullHouse.class" afterDir="false" />
@@ -37,29 +17,12 @@
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$ThreeKind.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$ThreeKind.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$TwoPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$TwoPair.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/HandOperations.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/HandOperations.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/HandRank.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/HandRank.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/RankLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/RankLogic.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/util/CyclicSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/util/CyclicSet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/CardGamesPlatform/CycleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/CardGamesPlatform/CycleTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/CardGamesPlatform/META-INF/CardGamesPlatform.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/AbstractFindRankTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/AbstractFindRankTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/BasicFindRankTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/BasicFindRankTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/FringeFindRankTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/FringeFindRankTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/HandTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/HandTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/StandardDeckTest$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/StandardDeckTest$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/StandardDeckTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/CardGamesPlatform/deck/StandardDeckTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/deck/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/deck/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/Hand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/deck/StandardDeck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/StandardDeck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/PokerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/PokerGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/ComputerBrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/ComputerBrain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/PokerPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/PokerPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/decision/PokerNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/decision/PokerNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/decision/PokerState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/decision/PokerState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/HighAggroStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/HighAggroStrat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/CheckStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/CheckStrat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/rules/FindRank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/rules/FindRank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ai/MonteCarloTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ai/MonteCarloTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,12 +35,19 @@
   </component>
   <component name="ProjectId" id="1Pf6FjK2uK1EkNhoun51n8Z8jo2" />
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -91,7 +61,22 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.MonteCarloTest">
+    <configuration name="FringeFindRankTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CardGamesPlatform" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="deck.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="deck" />
+      <option name="MAIN_CLASS_NAME" value="deck.FringeFindRankTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MonteCarloTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CardGamesPlatform" />
       <extension name="coverage">
@@ -107,9 +92,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MonteCarloTest.lowAggroTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CardGamesPlatform" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ai" />
+      <option name="MAIN_CLASS_NAME" value="ai.MonteCarloTest" />
+      <option name="METHOD_NAME" value="lowAggroTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MonteCarloTest.simpleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CardGamesPlatform" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ai" />
+      <option name="MAIN_CLASS_NAME" value="ai.MonteCarloTest" />
+      <option name="METHOD_NAME" value="simpleTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.MonteCarloTest" />
+        <item itemvalue="JUnit.MonteCarloTest.lowAggroTest" />
+        <item itemvalue="JUnit.MonteCarloTest.simpleTest" />
+        <item itemvalue="JUnit.FringeFindRankTest" />
       </list>
     </recent_temporary>
   </component>
