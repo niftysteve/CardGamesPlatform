@@ -6,23 +6,17 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CardGamesPlatform.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CardGamesPlatform.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/StandardDeck.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/StandardDeck.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$Flush.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$Flush.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$FourKind.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$FourKind.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$FullHouse.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$FullHouse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$HighCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$HighCard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$Pair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$RoyalFlush.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$RoyalFlush.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$Straight.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$Straight.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$StraightFlush.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$StraightFlush.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$ThreeKind.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$ThreeKind.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$TwoPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank$TwoPair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/poker/rules/FindRank.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/deck/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/deck/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/Hand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/deck/StandardDeck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/StandardDeck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/ComputerBrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/ComputerBrain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/decision/PokerNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/decision/PokerNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/decision/PokerState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/decision/PokerState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/BetStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/BetStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/CheckStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/CheckStrat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/rules/FindRank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/rules/FindRank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ai/MonteCarloTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ai/MonteCarloTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/HighAggroStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/HighAggroStrat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/LowAggroStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/LowAggroStrat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/MidAggroStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/MidAggroStrat.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -145,6 +139,7 @@
       <updated>1566252702241</updated>
       <workItem from="1566252705848" duration="3524000" />
       <workItem from="1566270443266" duration="3684000" />
+      <workItem from="1566364119400" duration="1048000" />
     </task>
     <servers />
   </component>

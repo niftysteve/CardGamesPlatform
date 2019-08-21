@@ -126,6 +126,7 @@ public class StandardDeck implements Deck {
 
   @Override
   public void setStreamCards(List<Card> content) {
-    this.streamCards = content;
+    streamCards.clear();
+    streamCards.addAll(content);
   }
 }

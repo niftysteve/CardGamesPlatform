@@ -26,6 +26,11 @@ public interface Deck {
    */
   Card drawCard();
 
+  /**
+   * Draws a card by removing it from a certain position in the deck.
+   * @param position the position to draw from
+   * @return the card drawn at the given position
+   */
   Card drawAtPosition(int position);
 
   /**
@@ -40,9 +45,21 @@ public interface Deck {
    */
   int remainingCards();
 
+  /**
+   * Retrieves the remaining cards in the deck.
+   * @return
+   */
   List<Card> allCards();
 
+  /**
+   * Removes matching cards in the deck.
+   * @param known the cards to search remove
+   */
   void removeKnown(List<Card> known);
 
+  /**
+   * Sets the current cards in the deck.
+   * @param content the cards in the new deck
+   */
   void setStreamCards(List<Card> content);
 }

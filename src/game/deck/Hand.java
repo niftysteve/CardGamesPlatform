@@ -20,11 +20,19 @@ public class Hand {
     this.hand = hand;
   }
 
+  /**
+   * Constructs a Hand with several Cards
+   * @param cards the cards to make the hand
+   */
   public Hand(Card... cards) {
     this.hand = new ArrayList<>();
     hand.addAll(Arrays.asList(cards));
   }
 
+  /**
+   * Constructs a Hand by copying another Hand
+   * @param hand the hand to copy
+   */
   public Hand(Hand hand) {
     this.hand = hand.getCards();
   }

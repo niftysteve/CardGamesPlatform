@@ -29,7 +29,7 @@ public class ComputerBrain {
   /**
    * Constructs a ComputerBrain object given the current state of the game.
    * @param hand the hand of the computer
-   * @param board the cards in the community
+   * @param board the community cards
    * @param players the number of players in the game, excluding this one
    * @param currentBet the bet currently on the line
    */
@@ -132,7 +132,7 @@ public class ComputerBrain {
     states.forEach(state -> {
       PokerNode newNode = new PokerNode(state);
       newNode.setParent(node);
-      node.getChildren().add(newNode);
+      node.addChild(newNode);
     });
   }
 

@@ -1,5 +1,14 @@
 package game.poker.player.strategy;
 
+/**
+ * Represents strategies used when betting.
+ */
 public interface BetStrategy {
-  int calcBet(int base);
+
+  /**
+   * Calculates an appropriate amount to bet.
+   * @param bet the current amount being bet
+   * @return the amount to bet
+   */
+  int calcBet(int bet);
 }
