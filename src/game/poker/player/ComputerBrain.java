@@ -1,11 +1,6 @@
 package game.poker.player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,6 +20,12 @@ public class ComputerBrain {
   private static final int SAMPLES = 1000;
   private PokerNode root;
   private int currentBet;
+  private Random rand;
+
+  public ComputerBrain(List<Card> hand, List<Card> board, int players, int currentBet, int seed) {
+    this(hand, board, players, currentBet);
+    this.rand = new Random(seed);
+  }
 
   /**
    * Constructs a ComputerBrain object given the current state of the game.
@@ -34,14 +35,21 @@ public class ComputerBrain {
    * @param currentBet the bet currently on the line
    */
   public ComputerBrain(List<Card> hand, List<Card> board, int players, int currentBet) {
-    List<Card> exclude = Stream.concat(hand.stream(), board.stream()).collect(Collectors.toList());
-    Deck base = new StandardDeck(exclude);
-    List<Hand> opponentHands = optimalHands(board, base, players);
-    opponentHands.forEach(opp -> base.removeKnown(opp.getCards()));
+    if (board.size() == 0) {
+      this.root = null;
+      this.currentBet = currentBet;
+    }
+    else {
+      List<Card> exclude = Stream.concat(hand.stream(), board.stream()).collect(Collectors.toList());
+      Deck base = new StandardDeck(exclude);
+      List<Hand> opponentHands = optimalHands(board, base, players);
+      opponentHands.forEach(opp -> base.removeKnown(opp.getCards()));
 
-    PokerState initial = new PokerState(hand, board, opponentHands, base);
-    this.root = new PokerNode(initial);
-    this.currentBet = currentBet;
+      PokerState initial = new PokerState(hand, board, opponentHands, base);
+      this.root = new PokerNode(initial);
+      this.currentBet = currentBet;
+    }
+    this.rand = new Random();
   }
 
   /**
@@ -49,6 +57,10 @@ public class ComputerBrain {
    * @return an appropriate amount to bet
    */
   public int calculateBet() {
+    if (root == null) {
+      return currentBet;
+    }
+
     int count = SAMPLES;
     while (count > 0) {
       // Phase 1 - Selection
@@ -75,6 +87,10 @@ public class ComputerBrain {
     double score = winner.calculateScore();
 
     System.out.println(score);
+
+    if (score <= 0.3) {
+      score = rand.nextDouble();
+    }
 
     BetStrategy strategy;
     if (score > 0.7) {

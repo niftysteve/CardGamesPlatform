@@ -81,10 +81,10 @@ public class PokerState {
       return 1;
     }
     else if (selfValue + 1 > oppValue) {
-      return 0.66;
+      return 0.5;
     }
     else if (selfValue + 2 > oppValue) {
-      return 0.33;
+      return 0.2;
     }
     else {
       return 0;

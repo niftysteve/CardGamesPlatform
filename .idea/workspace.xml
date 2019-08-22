@@ -5,18 +5,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CardGamesPlatform.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CardGamesPlatform.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Hand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/Hand.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/StandardDeck.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CardGamesPlatform/game/deck/StandardDeck.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/deck/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/deck/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/Hand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/deck/StandardDeck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/deck/StandardDeck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/ComputerBrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/ComputerBrain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/decision/PokerNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/decision/PokerNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/poker/player/decision/PokerState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/decision/PokerState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/BetStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/BetStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/CheckStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/CheckStrat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/HighAggroStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/HighAggroStrat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/LowAggroStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/LowAggroStrat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/poker/player/strategy/MidAggroStrat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/poker/player/strategy/MidAggroStrat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ai/MonteCarloTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/ai/MonteCarloTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,18 +48,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MonteCarloTest">
-    <configuration name="FringeFindRankTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.PlayPoker">
+    <configuration name="PlayPoker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="game.poker.cmdflow.PlayPoker" />
       <module name="CardGamesPlatform" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="deck.*" />
+          <option name="PATTERN" value="game.poker.cmdflow.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="deck" />
-      <option name="MAIN_CLASS_NAME" value="deck.FringeFindRankTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -86,7 +77,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MonteCarloTest.lowAggroTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MonteCarloTest.testCheck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CardGamesPlatform" />
       <extension name="coverage">
         <pattern>
@@ -96,13 +87,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="ai" />
       <option name="MAIN_CLASS_NAME" value="ai.MonteCarloTest" />
-      <option name="METHOD_NAME" value="lowAggroTest" />
+      <option name="METHOD_NAME" value="testCheck" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MonteCarloTest.simpleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MonteCarloTest.testLowAggro" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CardGamesPlatform" />
       <extension name="coverage">
         <pattern>
@@ -112,7 +103,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="ai" />
       <option name="MAIN_CLASS_NAME" value="ai.MonteCarloTest" />
-      <option name="METHOD_NAME" value="simpleTest" />
+      <option name="METHOD_NAME" value="testLowAggro" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MonteCarloTest.testMidAggro" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CardGamesPlatform" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ai" />
+      <option name="MAIN_CLASS_NAME" value="ai.MonteCarloTest" />
+      <option name="METHOD_NAME" value="testMidAggro" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -120,10 +127,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PlayPoker" />
+        <item itemvalue="JUnit.MonteCarloTest.testMidAggro" />
         <item itemvalue="JUnit.MonteCarloTest" />
-        <item itemvalue="JUnit.MonteCarloTest.lowAggroTest" />
-        <item itemvalue="JUnit.MonteCarloTest.simpleTest" />
-        <item itemvalue="JUnit.FringeFindRankTest" />
+        <item itemvalue="JUnit.MonteCarloTest.testCheck" />
+        <item itemvalue="JUnit.MonteCarloTest.testLowAggro" />
       </list>
     </recent_temporary>
   </component>
