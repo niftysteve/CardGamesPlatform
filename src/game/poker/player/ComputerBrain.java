@@ -35,13 +35,14 @@ public class ComputerBrain {
    * @param currentBet the bet currently on the line
    */
   public ComputerBrain(List<Card> hand, List<Card> board, int players, int currentBet) {
-    if (board.size() == 0) {
+    if (board.size() == 0 || players == 0) {
       this.root = null;
       this.currentBet = currentBet;
     }
     else {
       List<Card> exclude = Stream.concat(hand.stream(), board.stream()).collect(Collectors.toList());
       Deck base = new StandardDeck(exclude);
+      base.burnCards((board.size() % 3) + 1);
       List<Hand> opponentHands = optimalHands(board, base, players);
       opponentHands.forEach(opp -> base.removeKnown(opp.getCards()));
 
@@ -102,8 +103,11 @@ public class ComputerBrain {
     else if (score > 0.3) {
       strategy = new LowAggroStrat();
     }
-    else {
+    else if (score > 0.15) {
       strategy = new CheckStrat();
+    }
+    else {
+      return 0;
     }
 
     return strategy.calcBet(currentBet);

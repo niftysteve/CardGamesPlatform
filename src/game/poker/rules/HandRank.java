@@ -24,4 +24,6 @@ public enum HandRank {
   public int getValue() {
     return value;
   }
+
+
 }

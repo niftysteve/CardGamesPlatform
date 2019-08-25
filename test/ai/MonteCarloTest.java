@@ -11,6 +11,9 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
+/**
+ * Tests for Monte Carlo Tree Search with betting.
+ */
 public class MonteCarloTest {
   private static final int BET = 100;
   private List<Card> hand;

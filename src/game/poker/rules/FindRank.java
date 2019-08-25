@@ -43,9 +43,12 @@ public class FindRank {
   public HandRank getRank(Hand base, List<Card> board) {
     List<Card> allCards = Stream.concat(base.getCards().stream(), board.stream()).collect(Collectors.toList());
     Hand current = new Hand(allCards);
+
     this.hand = current;
     this.logic = new HandOperations(current);
+
     RankLogic rank = logicResult();
+
     this.hand = null;
     this.logic = null;
 

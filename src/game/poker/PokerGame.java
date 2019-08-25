@@ -2,6 +2,7 @@ package game.poker;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +13,6 @@ import game.deck.Deck;
 import game.deck.Hand;
 import game.deck.StandardDeck;
 import game.poker.player.ComputerPlayer;
-import game.poker.player.Player;
 import game.poker.player.PokerPlayer;
 import game.poker.rules.HandRank;
 import game.util.CyclicSet;
@@ -21,7 +21,7 @@ import game.util.CyclicSet;
  * Represents the game of Poker.
  */
 public class PokerGame {
-  private List<Player> players = new ArrayList<>();
+  private List<PokerPlayer> players = new ArrayList<>();
   private List<Card> communityCards = new ArrayList<>();
   private int button = 0;
   private Deck deck;
@@ -51,7 +51,7 @@ public class PokerGame {
    * @return a set of all player IDs
    */
   private CyclicSet allPlayerId() {
-    return players.stream().map(Player::getId)
+    return players.stream().filter(PokerPlayer::isPlaying).map(PokerPlayer::getId)
             .collect(Collectors.toCollection(CyclicSet::new));
   }
 
@@ -67,39 +67,60 @@ public class PokerGame {
       players.add(new ComputerPlayer(players.size(), startMoney));
     }
 
-    deal();
-    blindSetup();
+    startRound();
   }
 
   /**
-   * Reshuffles the deck and deals new cards to each player.
+   * Begins a round by shuffling the deck, dealing cards, and setting up the blinds.
    */
-  public void deal() {
+  private void startRound() {
     deck.shuffle();
-    List<Hand> playerHands = deck.dealCards(players.size(), 2);
-    players.forEach(p -> p.initHand(playerHands.remove(0)));
+    CyclicSet cycle = allPlayerId();
+    List<Hand> playerHands = deck.dealCards(cycle.size(), 2);
+    players.forEach(p -> {
+      if (p.isPlaying()) p.initHand(playerHands.remove(0));
+    });
+
+    Integer smallPlayer = cycle.nextItem(button);
+    Integer bigPlayer = cycle.nextItem(smallPlayer);
+
+    players.get(smallPlayer).bet(25);
+    players.get(bigPlayer).bet(50);
+    resetRaise();
+  }
+
+  /**
+   * Starts a new round by clearing the community cards and updating the dealers and players.
+   */
+  private void newRound() {
+    communityCards.clear();
+    players.forEach(PokerPlayer::continuePlay);
+    updateDealer();
+    startRound();
+  }
+
+  /**
+   * Changes the dealer to the next player.
+   */
+  private void updateDealer() {
+    CyclicSet cycle = allPlayerId();
+    button = cycle.nextItem(button);
+
+    if (!players.get(button).isPlaying()) {
+      updateDealer();
+    }
   }
 
   /**
    * Adds the given amount of cards to the community table.
-   * @param amount the amount of cards to be flipped
    */
-  public void flipCard(int amount) {
-    deck.burnCards(1);
-    IntStream.range(0, amount).forEach(n -> communityCards.add(deck.drawCard()));
-  }
-
-  /**
-   * Sets up the big blind and small blind players.
-   */
-  private void blindSetup() {
-
-    CyclicSet cycle = allPlayerId();
-    Integer smallPlayer = cycle.nextItem(button);
-    Integer bigPlayer = cycle.nextItem(smallPlayer);
-
-    players.get(smallPlayer).bet(25, false);
-    players.get(bigPlayer).bet(50, false);
+  public void flipCard() {
+    if (communityCards.size() < 5) {
+      deck.burnCards(1);
+      int amount = communityCards.size() == 0 ? 3 : 1;
+      IntStream.range(0, amount).forEach(n -> communityCards.add(deck.drawCard()));
+      resetRaise();
+    }
   }
 
   /**
@@ -107,9 +128,8 @@ public class PokerGame {
    * @return the sum of all player's bets
    */
   public int totalPot() {
-
     int pot = 0;
-    for (Player player : players) {
+    for (PokerPlayer player : players) {
       pot += player.getBet();
     }
 
@@ -117,16 +137,16 @@ public class PokerGame {
   }
 
   /**
-   * Retrieves all players in order starting from the left of the big blind.
+   * Retrieves all available players in order starting from the left of the big blind.
    * @return a list of all players
    */
-  public ArrayList<Player> getPlayers() {
+  public List<PokerPlayer> availablePlayers() {
     CyclicSet cycle = allPlayerId();
     Integer betPlayer = cycle.fromStart(button, 3);
 
-    ArrayList<Player> ordered = new ArrayList<>();
+    List<PokerPlayer> ordered = new ArrayList<>();
 
-    for (int i = 0; i < players.size(); i++) {
+    for (int i = 0; i < cycle.size(); i++) {
       ordered.add(players.get(betPlayer));
       betPlayer = cycle.nextItem(betPlayer);
     }
@@ -138,23 +158,128 @@ public class PokerGame {
    * Determines if only one player is still playing.
    * @return if the game is over
    */
-  public boolean isGameOver() {
-    int playCount = 0;
-    for (Player player : players) {
-      if (player.isPlaying()) {
-        playCount += 1;
-      }
-    }
-
-    return playCount == 1;
+  public boolean inProgress() {
+    return players.stream().filter(p -> p.getMoney() > 0 || p.isPlaying()).count() > 1;
   }
 
   /**
-   * Gets the current highest bet.
+   * Finds the current highest bet.
    * @return the current highest bet
    */
-  public int getCurHigh() {
-    return Collections.max(players.stream().map(Player::getBet).collect(Collectors.toList()));
+  public int currentBet() {
+    return Collections.max(players.stream().map(PokerPlayer::getBet).collect(Collectors.toList()));
+  }
+
+  /**
+   * Finds the winner(s) of the round and allots them the pot.
+   * @return the ID of the round winners
+   */
+  public String resolveWin() {
+    for (Card card : communityCards) {
+      for (PokerPlayer player : players) {
+        player.addCard(card);
+      }
+    }
+
+    List<HandRank> allRanks = players.stream().filter(PokerPlayer::isPlaying).map(PokerPlayer::getRank)
+            .collect(Collectors.toList());
+    HandRank maxRank = Collections.max(allRanks, Comparator.comparing(HandRank::getValue));
+
+    List<PokerPlayer> winners = new ArrayList<>(players);
+    winners.removeIf(p -> p.getRank() != maxRank);
+
+    if (winners.size() > 1) {
+      highestHand(winners);
+    }
+
+    return allocatePot(winners);
+  }
+
+  /**
+   * Resolves tiebreakers by finding the player(s) with the highest summed hand.
+   * If all players have the same exact hand, then it is a draw
+   * @param winners a list of players with tied hands
+   */
+  private void highestHand(List<PokerPlayer> winners) {
+    int maxHandSum = Collections.max(winners.stream().map(PokerPlayer::totalRankedSum)
+            .collect(Collectors.toList()));
+    winners.removeIf(p -> p.totalRankedSum() != maxHandSum);
+  }
+
+  /**
+   * Splits the pot among winners of the round.
+   * @param winners a list of winning players
+   * @return the IDs of the winning players
+   */
+  private String allocatePot(List<PokerPlayer> winners) {
+    StringBuilder builder = new StringBuilder();
+    int split = totalPot() / winners.size();
+
+    for (int i = 0; i < winners.size(); i++) {
+      PokerPlayer player = winners.get(i);
+      player.claim(split);
+      String message = player.getId() + (i < winners.size() - 1 ? " & " : "");
+      builder.append(message);
+    }
+
+    newRound();
+
+    return builder.toString();
+  }
+
+  /**
+   * Determines if a round of betting is complete.
+   * @return if the current round of betting is complete
+   */
+  public boolean bettingDone() {
+    HashSet<Integer> bets = players.stream().filter(PokerPlayer::isPlaying).map(PokerPlayer::getBet)
+            .collect(Collectors.toCollection(HashSet::new));
+
+    if (bets.size() == 1) {
+      return true;
+    }
+    else {
+      HashSet<Integer> allInBets = players.stream().filter(PokerPlayer::isPlaying)
+              .filter(p -> p.getMoney() == 0).map(PokerPlayer::getBet)
+              .collect(Collectors.toCollection(HashSet::new));
+
+      for (Integer bet : allInBets) {
+        bets.remove(bet);
+      }
+
+      return bets.size() == 1;
+    }
+  }
+
+  /**
+   * Resets the status on every player's raise attempt.
+   */
+  private void resetRaise() {
+    players.forEach(p -> p.setRaise(false));
+  }
+
+  /**
+   * Determines if every player has put money into the pot.
+   * @return if every player has has put money into the pot
+   */
+  public boolean allRaised() {
+    return players.stream().filter(p -> p.getMoney() > 0 && p.isPlaying()).allMatch(PokerPlayer::getRaised);
+  }
+
+  /**
+   * Determines if the round should be closed.
+   * @return if the round should be closed
+   */
+  public boolean closeRound() {
+    return communityCards.size() == 5 || players.stream().filter(PokerPlayer::isPlaying).count() == 1;
+  }
+
+  /**
+   * Retrieves the current community cards.
+   * @return a copy of the community cards
+   */
+  public List<Card> getCommunity() {
+    return new ArrayList<>(communityCards);
   }
 
   /**
@@ -164,14 +289,13 @@ public class PokerGame {
   public String betState() {
     StringBuilder builder = new StringBuilder();
 
-    for (Player player : players) {
-      String bet = player.getBet() + " | ";
+    for (int i = 0; i < players.size(); i++) {
+      PokerPlayer player = players.get(i);
+      String bet = player.getBet() + (i < players.size() - 1 ? " | " : "");
       builder.append(bet);
     }
 
-    String allBets = builder.toString();
-
-    return allBets.substring(0, allBets.length() - 3);
+    return builder.toString();
   }
 
   /**
@@ -186,173 +310,13 @@ public class PokerGame {
 
     StringBuilder builder = new StringBuilder();
 
-    for (Card card : communityCards) {
-      String curCard = card.getNamedValue() + " of " + card.getSuit() + ", ";
+    for (int i = 0; i < communityCards.size(); i++) {
+      Card card = communityCards.get(i);
+      String curCard = card.getNamedValue() + " of " + card.getSuit()
+              + (i < communityCards.size() - 1 ? ", " : "");
       builder.append(curCard);
     }
 
-    String community = builder.toString();
-
-    return community.substring(0, community.length() - 2);
-  }
-
-  /**
-   * Finds the winners of the round and allots them the pot.
-   * @return the ID of the round winners
-   */
-  public String resolveWin() {
-    ArrayList<Player> winners = new ArrayList<>(players);
-    winners.removeIf(p -> !p.isPlaying());
-
-    int[] highestRank = new int[1];
-    for (Player player : winners) {
-      player.addCard(communityCards);
-      HandRank rank = player.getRank();
-      int rankValue = rank.getValue();
-
-      if (rankValue > highestRank[0]) {
-        highestRank[0] = rankValue;
-      }
-    }
-
-    winners.removeIf(p -> p.getRank().getValue() != highestRank[0]);
-
-    if (winners.size() != 1) {
-      return splitPot(highestHand(winners));
-    }
-    else {
-      Player victor = winners.get(0);
-      victor.claim(totalPot());
-      newRound();
-
-      return Integer.toString(victor.getId());
-    }
-  }
-
-  /**
-   * Resolves tiebreakers by finding the player with the highest value card.
-   * If all players have the same exact hand, then it is a draw
-   * @param winners a list of players with tied hands
-   * @return a list of players who won
-   */
-  private ArrayList<Player> highestHand(ArrayList<Player> winners) {
-    ArrayList<Player> finalWinner = new ArrayList<>(winners);
-    int minSize = Collections.min(winners.stream().map(p -> p.getRankedHand().getCards().size())
-            .collect(Collectors.toList()));
-
-    for (int i = 0; i < minSize; i++) {
-      if (finalWinner.size() == 1) {
-        break;
-      }
-
-      int[] maxVal = new int[]{0};
-      for (Player player : winners) {
-        CyclicSet cycle = new CyclicSet(player.getRankedHand().getValues());
-        int curMax = cycle.fromEnd(cycle.last(), i);
-
-        if (curMax > maxVal[0]) {
-          maxVal[0] = curMax;
-        }
-      }
-      finalWinner.removeIf(p -> !p.getRankedHand().getValues().contains(maxVal[0]));
-    }
-
-    return finalWinner;
-  }
-
-  /**
-   * Splits the pot among winners of the round.
-   * @param winners a list of winning players
-   * @return the IDs of the winning players
-   */
-  private String splitPot(ArrayList<Player> winners) {
-
-    StringBuilder builder = new StringBuilder();
-    int split = totalPot() / winners.size();
-    for (Player player : winners) {
-      player.claim(split);
-      String curWin = player.getId() + " & ";
-      builder.append(curWin);
-    }
-
-    newRound();
-    String result = builder.toString();
-
-    return result.substring(0, result.length() - 3);
-  }
-
-  /**
-   * Starts a new round by clearing the community cards and updating the dealers and players.
-   */
-  private void newRound() {
-    communityCards.clear();
-    players.forEach(Player::continuePlay);
-    updateDealer();
-    deal();
-    blindSetup();
-  }
-
-  /**
-   * Changes the dealer.
-   */
-  private void updateDealer() {
-    CyclicSet cycle = allPlayerId();
-    button = cycle.nextItem(button);
-
-    if (!players.get(button).isPlaying()) {
-      updateDealer();
-    }
-  }
-
-  /**
-   * Retrieves the current community cards.
-   * @return a copy of the community cards
-   */
-  public ArrayList<Card> getCommunity() {
-    return new ArrayList<>(communityCards);
-  }
-
-  /**
-   * Retrieves the only human player in the game.
-   * @return the human player
-   */
-  public Player getHuman() {
-    return players.get(0);
-  }
-
-  /**
-   * Determines if a round of betting is complete.
-   * @return if the current round of betting is complete
-   */
-  public boolean roundDone() {
-    HashSet<Integer> bets = players.stream().filter(Player::isPlaying).map(Player::getBet)
-            .collect(Collectors.toCollection(HashSet::new));
-
-    if (bets.size() == 1) {
-      return true;
-    }
-    else {
-      HashSet<Integer> allInBets = players.stream().filter(Player::isPlaying)
-              .filter(p -> p.getMoney() == 0).map(Player::getBet)
-              .collect(Collectors.toCollection(HashSet::new));
-
-      for (Integer bet : allInBets) {
-        bets.remove(bet);
-      }
-
-      return bets.size() == 1;
-    }
-  }
-
-  /**
-   * Resets the status on every player's raise attempt.
-   */
-  public void resetRaise() {
-    boolean alreadyRaised = players.stream().filter(Player::getRaised)
-            .collect(Collectors.toList()).size() > 0;
-
-    if (alreadyRaised) {
-      players.forEach(Player::setRaise);
-    }
+    return builder.toString();
   }
 }

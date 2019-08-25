@@ -7,6 +7,9 @@ import game.util.CyclicSet;
 
 import static junit.framework.TestCase.assertEquals;
 
+/**
+ * Tests for the CyclicSet utility.
+ */
 public class CycleTest {
   private CyclicSet linearCycle;
 

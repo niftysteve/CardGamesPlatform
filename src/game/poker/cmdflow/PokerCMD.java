@@ -1,12 +1,11 @@
 package game.poker.cmdflow;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 import game.poker.PokerGame;
 import game.poker.player.ComputerPlayer;
-import game.poker.player.Player;
+import game.poker.player.PokerPlayer;
 
 /**
  * Controls the flow and user interaction of Poker.
@@ -28,27 +27,15 @@ public class PokerCMD implements GameController {
   public void playGame() {
     dataIn = new Scanner(this.read);
 
-    Iterator<Player> playerIterator = game.getPlayers().iterator();
-    while (playerIterator.hasNext()) {
-      Player player = playerIterator.next();
-      if (player instanceof ComputerPlayer) {
-        ((ComputerPlayer) player).calculateBet();
-        playerIterator.remove();
+    while (game.inProgress()) {
+      if (!game.closeRound()) {
+        playRound();
+        game.flipCard();
       }
       else {
-        break;
+        displayEndStatus();
+        writeMessage("\nPlayer " + game.resolveWin() + " has won the round\n\n");
       }
-    }
-
-    while (!game.isGameOver()) {
-      playRound();
-      game.flipCard(3);
-      playRound();
-      game.flipCard(1);
-      playRound();
-      game.flipCard(1);
-      writeMessage("\nPlayer " + game.resolveWin() + " has won the round\n\n");
-      game.deal();
     }
   }
 
@@ -56,18 +43,26 @@ public class PokerCMD implements GameController {
    * Plays a single round of Poker.
    */
   private void playRound() {
-
-    for (Player player : game.getPlayers()) {
-      if (player.isPlaying() && !player.getRaised() && !game.isGameOver()) {
-
-        if (player instanceof ComputerPlayer) {
-          game.resetRaise();
-          ((ComputerPlayer) player).calculateBet();
-        }
-        else {
-          actionRound(player);
+    while (!game.bettingDone() || !game.allRaised()) {
+      for (PokerPlayer player : game.availablePlayers()) {
+        if (player.isPlaying() && game.inProgress()) {
+          if (player instanceof ComputerPlayer) {
+            ((ComputerPlayer) player).calculateBet(game.getCommunity(),
+                    game.availablePlayers().size() - 1, game.currentBet());
+          }
+          else {
+            actionRound(player);
+          }
         }
       }
+    }
+  }
+
+  private void displayEndStatus() {
+    writeMessage("\nCommunity cards: " + game.communityState() + "\n");
+    writeMessage("All bets: " + game.betState() + "\n");
+    for (PokerPlayer player : game.availablePlayers()) {
+      writeMessage("Player " + player.getId() + " hand: " + player.handState() + "\n");
     }
   }
 
@@ -75,10 +70,10 @@ public class PokerCMD implements GameController {
    * Presents the user with the game status and asks for their desired action.
    * @param player the player who is taking a turn
    */
-  private void actionRound(Player player) {
+  private void actionRound(PokerPlayer player) {
     writeMessage("Your player ID: " + player.getId() + "\n");
     writeMessage("Your cards: " + player.handState() + "\n");
-    writeMessage("Community Cards: " + game.communityState() + "\n");
+    writeMessage("Community cards: " + game.communityState() + "\n");
     writeMessage("Your money: " + player.getMoney() + "\n");
     writeMessage("Your bet: " + player.getBet() + "\n");
     writeMessage("Current bets: " + game.betState() + "\n");
@@ -91,14 +86,9 @@ public class PokerCMD implements GameController {
 
       switch (action) {
         case "check":
-          int betDif = game.getCurHigh() - player.getBet();
-          if (betDif > player.getMoney()) {
-            writeMessage("You don't have enough money. Try again.\n");
-          }
-          else {
-            player.bet(betDif, false);
-            validInput = true;
-          }
+          int betDif = game.currentBet() - player.getBet();
+          player.bet(betDif);
+          validInput = true;
           break;
         case "fold":
           player.fold();
@@ -108,11 +98,11 @@ public class PokerCMD implements GameController {
         case "raise":
           writeMessage("Enter amount to raise: ");
           int raise = dataIn.nextInt();
-          player.bet((game.getCurHigh() - player.getBet()) + raise, true);
+          player.bet((game.currentBet() - player.getBet()) + raise);
           validInput = true;
           break;
         case "all":
-          player.bet(player.getMoney(), true);
+          player.bet(player.getMoney());
           validInput = true;
           break;
         default:

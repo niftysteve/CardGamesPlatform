@@ -12,6 +12,6 @@ public class LowAggroStrat implements BetStrategy {
   public int calcBet(int base) {
     Random rand = new Random();
     int upper = base * FACTOR;
-    return rand.nextInt(upper + 1 - base) + base;
+    return rand.nextInt(upper + 2 - base) + base + 1;
   }
 }
